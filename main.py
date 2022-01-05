@@ -1,75 +1,106 @@
 import os, time
 from sys import stdout
 
-def red():
-    RED = "\033[1;31m"
-    stdout.write(RED)
-
-def green():
-    GREEN = "\033[0;32m"
-    stdout.write(GREEN)
-
-def blue():
-    BLUE = "\033[1;34m"
-    stdout.write(BLUE)
-
-def yellow():
-    YELLOW = "\033[1;33m"
-    stdout.write(YELLOW)
-
-def purple():
-    PURPLE = "\033[1;35m"
-    stdout.write(PURPLE)
-
-def white():
-    WHITE = "\033[1;37m"
-    stdout.write(WHITE)
-
 banner = """
-          _______  _        _______  _______   
-|\     /|(  ____ \( (    /|(  ___  )(       )  
-| )   ( || (    \/|  \  ( || (   ) || () () |  
-| |   | || (__    |   \ | || |   | || || || |  
-( (   ) )|  __)   | (\ \) || |   | || |(_)| |  quetzal
- \ \_/ / | (      | | \   || |   | || |   | |  
-  \   /  | (____/\| )  \  || (___) || )   ( |  
-   \_/   (_______/|/    )_)(_______)|/     \|  
-                                               
+\033[1;31m              (        )      )  (                   
+\033[1;31m              )\ )  ( /(   ( /(  )\ )   (     (      
+\033[1;31m (   (   (   (()/(  )\())  )\())(()/(   )\    )\     
+\033[1;31m )\  )\  )\   /(_))((_)\  ((_)\  /(_))(((_)((((_)(   
+\033[1;31m((_)((_)((_) (_))    ((_)  _((_)(_))  )\___ )\ _ )\  
+\033[1;35m\ \ / / | __|| _ \  / _ \ | \| ||_ _|\033[1;31m((\033[1;35m/ __|\033[1;31m(_)\033[1;35m_\ \033[1;31m(_) 
+\033[1;35m \ V /  | _| |   / | (_) || .` | | |  | (__  / _ \    \033[1;32mQuetzal\033[0;31m\33[5mHACK\033[0m
+\033[1;35m  \_/   |___||_|_\  \___/ |_|\_||___|  \___|/_/ \_\                                                                                
+""" 
+alerta = "\n        \033[1;34m[\033[1;31m\33[5m!\033[0m\033[1;34m] \033[1;31mNo Interrumpir el Programa.\033[0m \n"
+final = """
+\n        \033[1;34m[\033[1;31m\33[5m!\033[0m\033[1;34m] \033[1;32mInstalacion Completa 100% PRO\033[0m \033[1;34m[\033[1;31m\33[5m!\033[0m\033[1;34m] \n
+            ░░█▀░░░░░░░░░░░▀▀███████░░░░░
+            ░░█▌░░░░░░░░░░░░░░░▀██████░░░
+            ░█▌░░░░░░░░░░░░░░░░███████▌░░
+            ░█░░░░░░░░░░░░░░░░░████████░░
+            ▐▌░░░░░░░░░░░░░░░░░▀██████▌░░
+            ░▌▄███▌░░░░▀████▄░░░░▀████▌░░
+            ▐▀▀▄█▄░▌░░░▄██▄▄▄▀░░░░████▄▄░
+            ▐░▀░░═▐░░░░░░══░░▀░░░░▐▀░▄▀▌▌
+            ▐░░░░░▌░░░░░░░░░░░░░░░▀░▀░░▌▌
+            ▐░░░▄▀░░░▀░▌░░░░░░░░░░░░▌█░▌▌
+            ░▌░░▀▀▄▄▀▀▄▌▌░░░░░░░░░░▐░▀▐▐░
+            ░▌░░▌░▄▄▄▄░░░▌░░░░░░░░▐░░▀▐░░
+            ░█░▐▄██████▄░▐░░░░░░░░█▀▄▄▀░░
+            ░▐░▌▌░░░░░░▀▀▄▐░░░░░░█▌░░░░░░
+            ░░█░░▄▀▀▀▀▄░▄═╝▄░░░▄▀░▌░░░░░░
+            ░░░▌▐░░░░░░▌░▀▀░░▄▀░░▐░░░░░░░
+            ░░░▀▄░░░░░░░░░▄▀▀░░░░█░░░░░░░
+            ░░░▄█▄▄▄▄▄▄▄▀▀░░░░░░░▌▌░░░░░░
+            ░░▄▀▌▀▌░░░░░░░░░░░░░▄▀▀▄░░░░░
+            ▄▀░░▌░▀▄░░░░░░░░░░▄▀░░▌░▀▄░░░
+            ░░░░▌█▄▄▀▄░░░░░░▄▀░░░░▌░░░▌▄▄
+            ░░░▄▐██████▄▄░▄▀░░▄▄▄▄▌░░░░▄░
+            ░░▄▌████████▄▄▄███████▌░░░░░▄
+            ░▄▀░██████████████████▌▀▄░░░░
+            ▀░░░█████▀▀░░░▀███████░░░▀▄░░
+            ░░░░▐█▀░░░▐░░░░░▀████▌░░░░▀▄░
+            ░░░░░░▌░░░▐░░░░▐░░▀▀█░░░░░░░▀
+            ░░░░░░▐░░░░▌░░░▐░░░░░▌░░░░░░░
+            \033[1;34m░\033[1;31m╔╗║\033[0m\033[1;34m░\033[1;31m╔═╗\033[0m\033[1;34m░\033[1;31m═╦═\033[0m\033[1;34m░░░░░\033[1;31m╔╗\033[0m\033[1;34m░░\033[1;31m╔═╗\033[0m\033[1;34m░\033[1;31m╦═╗\033[0m\033[1;34m░
+            \033[1;34m░\033[1;31m║║║\033[0m\033[1;34m░\033[1;31m║░║\033[0m\033[1;34m░░\033[1;31m║\033[0m\033[1;34m░░░░░░\033[1;31m╠╩╗\033[0m\033[1;34m░\033[1;31m╠═╣\033[0m\033[1;34m░\033[1;31m║░║\033[0m\033[1;34m░
+            \033[1;34m░\033[1;31m║╚╝\033[0m\033[1;34m░\033[1;31m╚═╝\033[0m\033[1;34m░░\033[1;31m║\033[0m\033[1;34m░░░░░░\033[1;31m╚═╝\033[0m\033[1;34m░\033[1;31m║░║\033[0m\033[1;34m░\033[1;31m╩═╝\033[0m\033[1;34m░
+            \033[1;34m░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 """
-
 def menu():
-    red()
+    os.system("clear")
     print(banner)
-    blue()
-    time.sleep(1)
-    print("1 -> Instalar Requerimientos necesarios")
-    time.sleep(1)
-    print("\n2 -> Instalar Bspwm")
-    time.sleep(1)
-    print("\n3 -> Instalar Polybar, Picom, Rofi...")
-    time.sleep(1)
-    print("\n4 -> All In One")
-    time.sleep(1)
-    print("\n5 -> Salir")
-    time.sleep(1)
+    time.sleep(.5)
+    print("\033[1;34m1 -> Instalar Entorno Base")
+    time.sleep(.5)
+    print("\n\033[1;34m2 -> Instalar Entorno Con Herramientas Anonimato")
+    time.sleep(.5)
+    print("\n\033[1;34m3 -> Instalar Entorno Con Herramientas OSINT")
+    time.sleep(.5)
+    print("\n\033[1;34m4 -> Instalar Entorno Con Todas Las Herramientas")
+    time.sleep(.5)
+    print("\n\033[1;34m5 -> Salir")
+    time.sleep(.5)
 
     option = input("\n-->> ")
 
     if option == "1":
+        os.system("clear")
+        print("\n        \033[1;34m[\033[1;31m\33[5m!\033[0m\033[1;34m] \033[1;33mIntalando Entorno Base.\033[0m")
+        print(alerta)
         req()
+        bspwm()
+        polybar()
+        os.system("clear")
+        print(final)
+
     if option == "2":
-        bspwm()
+        os.system("clear")
+        print("\n        \033[1;34m[\033[1;31m\33[5m!\033[0m\033[1;34m] \033[1;33mIntalando Entorno Con Herramientas Anonimato\033[0m")
+        print(alerta)
+
+        os.system("clear")
+        print(final)
+
     if option == "3":
-        polybar()
+        os.system("clear")
+        print("\n        \033[1;34m[\033[1;31m\33[5m!\033[0m\033[1;34m] \033[1;33mIntalando Entorno Con Herramientas OSINT\033[0m")
+
+        os.system("clear")
+        print(final)
+
     if option == "4":
-        req()
-        bspwm()
-        polybar()
+        os.system("clear")
+        print("\n        \033[1;34m[\033[1;31m\33[5m!\033[0m\033[1;34m] \033[1;33mIntalando Entorno Con Todas Las Herramientas\033[0m")
+        print(alerta)
+
+        os.system("clear")
+        print(final)
+        
     if option == "5":
         exit()
 
 def req():
-    green()
     print("[+] Instalando requerimientos...\n")
 
     # Instalando Requerimientos
@@ -83,7 +114,6 @@ def req():
     print("[+] Requetimientos instalados correctamente")
 
 def bspwm():
-    green()
 
     # Clona la repo de bspwm
     os.system("git clone https://github.com/baskerville/bspwm.git")
@@ -122,7 +152,6 @@ def bspwm():
     print("\n[+] Bspwm instalado correctamente!")
 
 def polybar():
-    green()
 
     # Clona el repo de polybar
     os.system("git clone --recursive https://github.com/polybar/polybar")
@@ -276,7 +305,7 @@ def polybar():
     os.system("sudo mv tools/wichSystem.py /bin/")
 
     # Instalando lsd para zsh
-    os.system("sudo dpkg -i tools/lsd.deb")
+    os.system("sudo dpkg -i tools/lsd.deb /dev/null")
 
     print("\n[+] POLYBAR INSTALADO!!!")
 
@@ -284,7 +313,6 @@ if __name__ == '__main__':
     id = os.getuid()
     
     if id == 0:
-        red()
         print()
         print("[!] No hay que ser root para ejecutar la herramienta")
         print()
